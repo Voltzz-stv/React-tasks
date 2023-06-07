@@ -1,0 +1,40 @@
+.list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.item {
+  background-color: #4a8fe8;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  width: 800px;
+  display: flex;
+  justify-content: center;
+}
+
+.item:hover {
+  background-color: #e0e0e0;
+}
+
+.dragging {
+  background-color: #d4d4d4;
+}
+
+/* Optional: Add animations or visual feedback during drag and drop interactions */
+.item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.item:active {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
