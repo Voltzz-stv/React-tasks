@@ -39,7 +39,8 @@ export default function Todo() {
           type="text"
           value={newTodo}
           onChange={handleInputChange}
-          placeholder="Enter a new todo"
+          p
+          ceholder="Enter a new todo"
         />
         <button className={styles.button} type="submit">
           Add Todo

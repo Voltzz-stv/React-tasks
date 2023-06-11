@@ -25,6 +25,16 @@ const Navbar = () => {
             Chart Component
           </Link>
         </li>
+        <li className={styles.navbarItem}>
+          <Link className={styles.navbarLink} href="/pages/products">
+            Products List
+          </Link>
+        </li>
+        <li className={styles.navbarItem}>
+          <Link className={styles.navbarLink} href="/pages/addProduct">
+            Add Product
+          </Link>
+        </li>
       </ul>
     </nav>
   );

@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.item h2 {
+  margin-top: 0;
+}
+
+.item p {
+  margin-bottom: 0;
+}
+
+.button-container {
+  margin-top: 10px;
+}
+
+.update {
+  margin-right: 5px;
+  padding: 5px 3.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(155, 197, 155);
+  font-family: sans-serif;
+  color: white;
+  font-size: medium;
+  border: 0;
+}
+
+.delete {
+  margin-right: 5px;
+  padding: 5px 3.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(224, 78, 78);
+  font-family: sans-serif;
+  color: white;
+  font-size: medium;
+  border: 0;
+}
+
+.color {
+  background-color: green;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
