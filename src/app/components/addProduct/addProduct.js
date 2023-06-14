@@ -2,12 +2,14 @@
 import { useRef } from "react";
 import axios from "axios";
 import styles from "./addProduct.module.css";
-import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
+
 const FormPage = () => {
   const titleRef = useRef("");
   const descriptionRef = useRef("");
   const imageUrlRef = useRef("");
   const idRef = useRef("");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,26 +18,15 @@ const FormPage = () => {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
       imageUrl: imageUrlRef.current.value,
-      id: idRef.current.value,
     };
 
-    const jsonData = await JSON.stringify(formData);
-    console.log(jsonData);
-
     try {
-      // Send form data to your API endpoint
       await axios.post(
-        "https://react-task-a7cc0-default-rtdb.firebaseio.com/items.json",
-        jsonData
+        "http://localhost:3006/items",
+        { formData }
       );
 
-      // Clear form fields
-      titleRef.current.value = "";
-      descriptionRef.current.value = "";
-      imageUrlRef.current.value = "";
-      idRef.current.value = "";
-      redirect(200, "/");
-      // Do something after successful form submission
+      router.push("/pages/products");
       console.log("Form submitted successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -44,7 +35,7 @@ const FormPage = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Add Product</h1>
+      <h1 className={styles.center}>Add Product</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles.formgroup}>
           <label htmlFor="title">Title:</label>
@@ -72,10 +63,6 @@ const FormPage = () => {
             ref={imageUrlRef}
             className={styles.forminput}
           />
-        </div>
-        <div className={styles.formgroup}>
-          <label htmlFor="id">ID:</label>
-          <input type="text" id="id" ref={idRef} className={styles.forminput} />
         </div>
         <button type="submit" className={styles.submitbtn}>
           Submit

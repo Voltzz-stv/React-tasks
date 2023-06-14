@@ -1,14 +1,21 @@
 .container {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* align-items: center;  */
+  flex-wrap: wrap;
+}
+
+.center {
+  display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
 
 .item {
   border: 1px solid #ccc;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .item h2 {
@@ -24,7 +31,7 @@
 }
 
 .update {
-  margin-right: 5px;
+  margin-bottom: 5px;
   padding: 5px 3.5rem;
   border-radius: 5px;
   cursor: pointer;
@@ -33,10 +40,10 @@
   color: white;
   font-size: medium;
   border: 0;
+  width: 100%;
 }
 
 .delete {
-  margin-right: 5px;
   padding: 5px 3.5rem;
   border-radius: 5px;
   cursor: pointer;
@@ -45,6 +52,7 @@
   color: white;
   font-size: medium;
   border: 0;
+  width: 100%;
 }
 
 .color {

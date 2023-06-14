@@ -2,6 +2,12 @@
   max-width: 400px;
   margin: 0 auto;
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 .formgroup {
   margin-bottom: 20px;
 }

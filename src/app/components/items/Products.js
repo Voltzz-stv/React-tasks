@@ -3,17 +3,19 @@ import { useEffect, useState } from "react";
 import { getItems, updateItem, deleteItem } from "../../api/api";
 import styles from "./Products.module.css";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 
 export default function Products() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getItems();
+        const response = await getItems();
+        const data = await response;
         setItems(data);
       } catch (error) {
         setError(error.message);
@@ -21,18 +23,19 @@ export default function Products() {
         setLoading(false);
       }
     };
-
     fetchData();
-  }, []);
+  }, [items]);
 
-  const handleUpdate = async (itemId, newData) => {
+  const handleUpdate = async (item) => {
     try {
-      const updatedItem = await updateItem(itemId, newData);
-      setItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === updatedItem.id ? updatedItem : item
-        )
-      );
+      router.push({
+        pathname: "/pages/addProduct",
+        query: {
+          title: item.title,
+          description: item.description,
+          imageUrl: item.imageUrl,
+        },
+      });
     } catch (error) {
       setError(error.message);
     }
@@ -41,7 +44,8 @@ export default function Products() {
   const handleDelete = async (itemId) => {
     try {
       await deleteItem(itemId);
-      setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+      const data = await getItems();
+      setItems(data);
     } catch (error) {
       setError(error.message);
     }
@@ -56,36 +60,39 @@ export default function Products() {
   }
 
   return (
-    <div className={styles.container}>
-      <h1>Products List</h1>
-      {items.map((item) => (
-        <div className={styles.item} key={item.id}>
-          <h2>{item.title}</h2>
-          <Image
-            src={item.imageUrl}
-            alt={item.title}
-            width={300}
-            height={200}
-          />
-          <p>{item.description}</p>
-          <div className={styles.buttonContainer}>
-            <div>
-              <button
-                className={styles.update}
-                onClick={() => handleUpdate(item.id, { name: "New Name" })}
-              >
-                Update
-              </button>
-              <button
-                className={styles.delete}
-                onClick={() => handleDelete(item.id)}
-              >
-                Delete
-              </button>
+    <div>
+      <h1 className={styles.center}>Products List</h1>
+      <div className={styles.container}>
+        {items.map((item) => (
+          <div className={styles.item} key={item._id}>
+            <h2 className={styles.center}>{item.title}</h2>
+            <Image
+              src={item.imageUrl}
+              alt={item.title}
+              width={300}
+              height={200}
+              priority
+            />
+            <p>{item.description}</p>
+            <div className={styles.buttonContainer}>
+              <div>
+                <button
+                  className={styles.update}
+                  onClick={() => handleUpdate(item)}
+                >
+                  Update
+                </button>
+                <button
+                  className={styles.delete}
+                  onClick={() => handleDelete(item._id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
